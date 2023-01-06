@@ -1,23 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LayoutComponent } from './layout/layout.component';
-import { SignUpComponent } from './page/sign-up/sign-up.componet';
-import { SignInComponent } from './page/sign-in/sign-in.component';
+import { LayoutComponent } from '@app/layout/layout.component';
+import { SignInComponent } from '@app/page/sign-in/sign-in.component';
+import { SignUpComponent } from '@app/page/sign-up/sign-up.component';
 
+/** 根路由 */
 const routes: Routes = [
-  //a-route-path-default
-{ path: '',
-  component: LayoutComponent,
-  loadChildren: () => import('./page/index/index.module').then(m => m.IndexModule)
-},
-
-{ path: 'signup', component: SignUpComponent },
-{ path: 'signin', component: SignInComponent },
-
+  // 路由轉向首頁
+  { path: '', pathMatch: 'full', redirectTo: '/index' },
+  // a-route-path-default
+  // 首頁
+  {
+    path: 'index',
+    component: LayoutComponent,
+    loadChildren: () =>
+      import('./page/index/index.module').then((m) => m.IndexModule),
+  },
+  // 註冊頁
+  { path: 'sign-up', component: SignUpComponent },
+  // 登入頁
+  { path: 'sign-in', component: SignInComponent },
 ];
 
+/** 根路由模組 */
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
