@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { url } from '@app/constants/url.constant';
 
 /** 登入頁 */
@@ -13,17 +12,19 @@ export class SignInComponent {
   url = url;
 
   /** 登入頁 - 建構子 */
-  constructor() {}
+  constructor() { }
 
   /**
-   * 網址跳轉
-   * @param link - 網址
-   * @returns 無回傳值
-   */
-  onSubmit($event: Event): void {
-    console.log("login")
-  }
+  * 登入
+  * @returns 無回傳值
+  */
+  onSubmit(): void {}
 
+  /**
+  * 網址跳轉
+  * @param link - 網址
+  * @returns 無回傳值
+  */
   goLink(link: string): void {
     // 進行外部導轉
     window.open(link);

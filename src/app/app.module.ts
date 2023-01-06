@@ -3,6 +3,7 @@ import { MatInputModule } from '@angular/material/input';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from '@app/app-routing.module';
+import { FormsModule }   from '@angular/forms';
 import { AppComponent } from '@app/app.component';
 import { LayoutComponent } from '@app/layout/layout.component';
 import { SignInComponent } from '@app/page/sign-in/sign-in.component';
@@ -23,6 +24,7 @@ import { SignUpComponent } from '@app/page/sign-up/sign-up.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatInputModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
