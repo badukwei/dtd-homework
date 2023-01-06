@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
-import { SignUpComponent } from './page/sign-up/signup.componet';
+import { SignUpComponent } from './page/sign-up/sign-up.componet';
+import { SignInComponent } from './page/sign-in/sign-in.component';
 
 const routes: Routes = [
   //a-route-path-default
@@ -11,6 +12,7 @@ const routes: Routes = [
 },
 
 { path: 'signup', component: SignUpComponent },
+{ path: 'signin', component: SignInComponent },
 
 ];
 

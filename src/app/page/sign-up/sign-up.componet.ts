@@ -4,7 +4,7 @@ import {Component} from '@angular/core'
  * 註冊頁元件
  */
 @Component({
-  templateUrl: './signup.componet.html',
-  styleUrls: ['./signup.componet.scss'],
+  templateUrl: './sign-up.componet.html',
+  styleUrls: ['./sign-up.componet.scss'],
 })
 export class SignUpComponent {}
