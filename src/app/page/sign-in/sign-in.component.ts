@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { url } from '@app/constants/url.constant';
 
 /** 登入頁 */
@@ -19,6 +20,10 @@ export class SignInComponent {
    * @param link - 網址
    * @returns 無回傳值
    */
+  onSubmit($event: Event): void {
+    console.log("login")
+  }
+
   goLink(link: string): void {
     // 進行外部導轉
     window.open(link);

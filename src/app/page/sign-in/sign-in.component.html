@@ -92,41 +92,16 @@
                 <p class="mb-0">Enter your email and password to sign in</p>
               </div>
               <div class="card-body card-header">
-                <form role="form">
-                  <div class="mb-3">
-                    <input
-                      type="email"
-                      class="form-control form-control-lg"
-                      placeholder="Email"
-                      aria-label="Email"
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <input
-                      type="email"
-                      class="form-control form-control-lg"
-                      placeholder="Password"
-                      aria-label="Password"
-                    />
-                  </div>
-                  <div class="form-check form-switch">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      id="rememberMe"
-                    />
-                    <label class="form-check-label" for="rememberMe"
-                      >Remember me</label
-                    >
-                  </div>
-                  <div class="text-center">
-                    <button
-                      type="button"
-                      class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0"
-                    >
-                      Sign in
-                    </button>
-                  </div>
+                <form (ngSubmit)="onSubmit($event)" class="signin">
+                  <mat-form-field appearance="fill" class="signin-input">
+                    <mat-label>Email</mat-label>
+                    <input matInput #first />
+                  </mat-form-field>
+                  <mat-form-field appearance="fill" class="signin-input">
+                    <mat-label>Password</mat-label>
+                    <input matInput #last />
+                  </mat-form-field>
+                  <button mat-raised-button class="signin-submit">Sign In</button>
                 </form>
               </div>
               <div class="card-footer text-center pt-0 px-lg-2 px-1">
