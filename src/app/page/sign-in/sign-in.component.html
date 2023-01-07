@@ -92,16 +92,68 @@
                 <p class="mb-0">Enter your email and password to sign in</p>
               </div>
               <div class="card-body card-header">
-                <form (ngSubmit)="onSubmit()" class="signin">
+                <!-- 表單 -->
+                <form [formGroup]="form" (ngSubmit)="onSubmit()" class="signin">
+                  <!-- email -->
                   <mat-form-field appearance="fill" class="signin-input">
                     <mat-label>Email</mat-label>
-                    <input matInput #first />
+                    <input matInput #first formControlName="email" />
                   </mat-form-field>
+                  <pre>
+form.get("email")?.errors={{ form.get("email")?.errors | json }}</pre
+                  >
+
+                  <p class="text-primary" *ngIf="form.controls['email'].errors">
+                    請輸入 email
+                  </p>
+                  <!-- 密碼 -->
                   <mat-form-field appearance="fill" class="signin-input">
                     <mat-label>Password</mat-label>
-                    <input matInput #last />
+                    <input matInput #last formControlName="password" />
                   </mat-form-field>
-                  <button mat-raised-button class="signin-submit">Sign In</button>
+                  <p
+                    class="text-primary"
+                    *ngIf="form.controls['password'].errors"
+                  >
+                    請輸入 password
+                  </p>
+
+                  <!-- 姓名 -->
+                  <ng-container formArrayName="user">
+                    <ng-container
+                      *ngFor="let item of user.controls; let i = index"
+                      [formGroupName="i"
+                      ]
+                    >
+                      <p>第{{ i + 1 }}題</p>
+                      <mat-form-field appearance="fill" class="signin-input">
+                        <mat-label>First Name</mat-label>
+                        <input
+                          matInput
+                          [formControl]="userDataControl(i, 'firstName')"
+                        />
+                      </mat-form-field>
+                      <mat-form-field appearance="fill" class="signin-input">
+                        <mat-label>Last Name</mat-label>
+                        <input
+                          matInput
+                          [formControl]="userDataControl(i, 'lastName')"
+                        />
+                      </mat-form-field>
+                    </ng-container>
+                  </ng-container>
+                  <button
+                    type="button"
+                    mat-raised-button
+                    class="signin-submit"
+                    (click)="addNewUser()"
+                  >
+                    Add User
+                  </button>
+
+                  <button type="submit" mat-raised-button class="signin-submit">
+                    Sign In
+                  </button>
                 </form>
               </div>
               <div class="card-footer text-center pt-0 px-lg-2 px-1">
