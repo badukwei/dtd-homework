@@ -8,7 +8,6 @@ import { AppComponent } from '@app/app.component';
 import { LayoutComponent } from '@app/layout/layout.component';
 import { SignInComponent } from '@app/page/sign-in/sign-in.component';
 import { SignUpComponent } from '@app/page/sign-up/sign-up.component';
-import { TableComponent } from '@app/page/table/table.component'
 
 /**
  * 根模組
@@ -19,7 +18,6 @@ import { TableComponent } from '@app/page/table/table.component'
     LayoutComponent,
     SignInComponent,
     SignUpComponent,
-    TableComponent,
   ],
   imports: [
     BrowserModule,
