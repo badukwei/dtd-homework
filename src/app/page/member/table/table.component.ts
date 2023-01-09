@@ -89,4 +89,11 @@ export class TableComponent {
   changeTitle(): void {
     this.title = 'ABC';
   }
+
+  /**
+  * 變更標題
+  */
+  checkData(i: any) {
+    console.log(this.projectData[i])
+  }
 }
