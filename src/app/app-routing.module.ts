@@ -7,7 +7,7 @@ import { SignUpComponent } from '@app/page/sign-up/sign-up.component';
 /** 根路由 */
 const routes: Routes = [
   // 路由轉向首頁
-  { path: '', pathMatch: 'full', redirectTo: '/' },
+  { path: '', pathMatch: 'full', redirectTo: '/index' },
   // a-route-path-default
   // 首頁
   {

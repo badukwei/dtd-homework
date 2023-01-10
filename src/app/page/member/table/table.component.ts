@@ -71,7 +71,7 @@ export class TableComponent {
     {
       project: 'Webdev',
       projectUrl: '../assets/img/small-logos/logo-webdev.svg',
-      budget: 14000,
+      budget: null,
       status: 'working',
       completion: 80,
     },
@@ -82,8 +82,8 @@ export class TableComponent {
       status: 'done',
       completion: 100,
     },
-    {},
   ];
+
   /**
    * 變更標題
    * @returns 無回傳值
@@ -93,11 +93,11 @@ export class TableComponent {
   }
 
   /**
-  * 檢查資料
-  * @param listid
-  * @returns 無回傳值
-  */
-  checkData(i: any) {
-    console.log(this.projectData[i])
+   * 印出該行表單資料
+   * @param i - 表單資料索引
+   * @returns 無回傳值
+   */
+  printData(i: number): void {
+    console.log(this.projectData[i]);
   }
 }
