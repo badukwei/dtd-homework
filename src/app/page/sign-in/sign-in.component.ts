@@ -38,6 +38,14 @@ export class SignInComponent implements OnInit {
    * 初始化元件或指令
    */
   ngOnInit(): void {
+    this.initForm();
+  }
+
+  /**
+   * 建立初始表單
+   * @returns 無回傳值
+   */
+  initForm(): void {
     this.form = this.fb.group(
       {
         //email

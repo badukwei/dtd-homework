@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 /** 定義卡片型別 */
 export interface CardType {
@@ -22,7 +22,15 @@ interface StatusType {
 })
 export class CardComponent {
   /** 匯入資料 */
-  @Input() data!: CardType;
+  @Input() data: CardType = {
+    title: '',
+    money: '',
+    rate: '',
+    time: '',
+    status: '',
+  };
+  /** 資料變更事件 */
+  @Output() changeData = new EventEmitter<any>();
 
   /**
    * 處理狀態（複雜版）
@@ -64,5 +72,10 @@ export class CardComponent {
       'bg-gradient-success': status === 'success',
       'bg-gradient-warning': status === 'warning',
     };
+  }
+
+  /** 點擊更新資料 */
+  submit() {
+    this.changeData.emit(this.data);
   }
 }
