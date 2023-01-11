@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import {
   AfterViewInit,
   Component,
@@ -72,10 +73,23 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
   };
 
   /** 首頁 - 建構子 */
-  constructor() {
-    console.log('constructor');
-  }
+  peopleData: any = [];
 
+  constructor(private http: HttpClient) {
+    console.warn('constructor: DOM 尚未載入');
+
+    this.http
+      .get('/api/v1/rest/datastore/301000000A-000605-067', {
+        headers: {
+          authorization: 'Bearer xxx',
+        },
+      })
+      .subscribe({
+        next: (res: any) => {
+          this.peopleData = res.result.records;
+        },
+      });
+  }
   /**
    * Angular 生命週期
    * 初始化元件或指令

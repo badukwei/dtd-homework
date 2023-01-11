@@ -1,0 +1,7 @@
+{
+  "/api": {
+    "target": "https://od.moi.gov.tw",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
