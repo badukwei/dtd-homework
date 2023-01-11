@@ -23,6 +23,7 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
       rate: '+55%',
       time: 'since yesterday',
       status: 'primary',
+      link: 'https://angular.tw/guide/setup-local',
       describe:
         'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis id quisquam perferendis enim odit saepe, corrupti repellat voluptates fugiat sapiente sequi sunt nihil iure molestias reiciendis soluta dolore similique voluptatum totam iste fuga doloribus! Cumque tempora, quas id repellendus aut atque vel quod eligendi exercitationem voluptates nesciunt qui iste minus praesentium recusandae ipsam odit soluta expedita, magni, aliquam et veniam?',
     },
@@ -32,6 +33,7 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
       rate: '+35%',
       time: 'since Monday',
       status: 'danger',
+      link: 'https://tpi.gitbook.io/f2e-learning/homework/zuo-ye-jiao-jiao-ou',
       describe:
         'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis id quisquam perferendis enim odit saepe, corrupti repellat voluptates fugiat sapiente sequi sunt nihil iure molestias reiciendis soluta dolore similique voluptatum totam iste fuga doloribus! Cumque tempora, quas id repellendus aut atque vel quod eligendi exercitationem voluptates nesciunt qui iste minus praesentium recusandae ipsam odit soluta expedita, magni, aliquam et veniam?',
     },
@@ -41,6 +43,7 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
       rate: '+25%',
       time: 'since Saturday',
       status: 'success',
+      link: 'https://docs.github.com/en/pull-requests/committing-changes-to-your-project/viewing-and-comparing-commits/differences-between-commit-views',
       describe:
         'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis id quisquam perferendis enim odit saepe, corrupti repellat voluptates fugiat sapiente sequi sunt nihil iure molestias reiciendis soluta dolore similique voluptatum totam iste fuga doloribus! Cumque tempora, quas id repellendus aut atque vel quod eligendi exercitationem voluptates nesciunt qui iste minus praesentium recusandae ipsam odit soluta expedita, magni, aliquam et veniam?',
     },
@@ -50,17 +53,23 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
       rate: '+15%',
       time: 'since Sunday',
       status: 'warning',
+      link: 'https://docs.github.com/en/pull-requests',
       describe:
         'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis id quisquam perferendis enim odit saepe, corrupti repellat voluptates fugiat sapiente sequi sunt nihil iure molestias reiciendis soluta dolore similique voluptatum totam iste fuga doloribus! Cumque tempora, quas id repellendus aut atque vel quod eligendi exercitationem voluptates nesciunt qui iste minus praesentium recusandae ipsam odit soluta expedita, magni, aliquam et veniam?',
     },
   ];
 
+  //開關cardDetail
+  cardState = false;
+
+  //匯入卡片資料
   cardDetail = {
     title: '',
     money: '',
     rate: '',
     time: '',
     status: '',
+    link: '',
     describe: '',
   }
 
@@ -99,9 +108,10 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
   /**
    * output 變更事件
    * @param $event - 變更事件
-   * @returns 無回傳值
+   * @returns cradState, 無
    */
   changeData($event: any): void {
+    this.cardState = !this.cardState
     this.cardDetail = $event
   }
 }

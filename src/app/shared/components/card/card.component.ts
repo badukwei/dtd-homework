@@ -7,6 +7,7 @@ export interface CardType {
   rate: string;
   time: string;
   status: string;
+  link: string;
   describe: string;
 }
 
@@ -29,6 +30,7 @@ export class CardComponent {
     rate: '',
     time: '',
     status: '',
+    link: '',
     describe: '',
   };
   /** 資料變更事件 */
