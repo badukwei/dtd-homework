@@ -7,6 +7,7 @@ export interface CardType {
   rate: string;
   time: string;
   status: string;
+  describe: string;
 }
 
 interface StatusType {
@@ -28,6 +29,7 @@ export class CardComponent {
     rate: '',
     time: '',
     status: '',
+    describe: '',
   };
   /** 資料變更事件 */
   @Output() changeData = new EventEmitter<any>();

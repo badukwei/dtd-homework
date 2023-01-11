@@ -23,29 +23,46 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
       rate: '+55%',
       time: 'since yesterday',
       status: 'primary',
+      describe:
+        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis id quisquam perferendis enim odit saepe, corrupti repellat voluptates fugiat sapiente sequi sunt nihil iure molestias reiciendis soluta dolore similique voluptatum totam iste fuga doloribus! Cumque tempora, quas id repellendus aut atque vel quod eligendi exercitationem voluptates nesciunt qui iste minus praesentium recusandae ipsam odit soluta expedita, magni, aliquam et veniam?',
     },
     {
-      title: 'Todays Money',
+      title: 'Todays Sales',
       money: '$53,000',
-      rate: '+55%',
-      time: 'since yesterday',
+      rate: '+35%',
+      time: 'since Monday',
       status: 'danger',
+      describe:
+        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis id quisquam perferendis enim odit saepe, corrupti repellat voluptates fugiat sapiente sequi sunt nihil iure molestias reiciendis soluta dolore similique voluptatum totam iste fuga doloribus! Cumque tempora, quas id repellendus aut atque vel quod eligendi exercitationem voluptates nesciunt qui iste minus praesentium recusandae ipsam odit soluta expedita, magni, aliquam et veniam?',
     },
     {
-      title: 'Todays Money',
+      title: 'Todays Fund',
       money: '$53,000',
-      rate: '+55%',
-      time: 'since yesterday',
+      rate: '+25%',
+      time: 'since Saturday',
       status: 'success',
+      describe:
+        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis id quisquam perferendis enim odit saepe, corrupti repellat voluptates fugiat sapiente sequi sunt nihil iure molestias reiciendis soluta dolore similique voluptatum totam iste fuga doloribus! Cumque tempora, quas id repellendus aut atque vel quod eligendi exercitationem voluptates nesciunt qui iste minus praesentium recusandae ipsam odit soluta expedita, magni, aliquam et veniam?',
     },
     {
-      title: 'Todays Money',
-      money: '$53,000',
-      rate: '+55%',
-      time: 'since yesterday',
+      title: 'Todays Coin',
+      money: '$3,000',
+      rate: '+15%',
+      time: 'since Sunday',
       status: 'warning',
+      describe:
+        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis id quisquam perferendis enim odit saepe, corrupti repellat voluptates fugiat sapiente sequi sunt nihil iure molestias reiciendis soluta dolore similique voluptatum totam iste fuga doloribus! Cumque tempora, quas id repellendus aut atque vel quod eligendi exercitationem voluptates nesciunt qui iste minus praesentium recusandae ipsam odit soluta expedita, magni, aliquam et veniam?',
     },
   ];
+
+  cardDetail = {
+    title: '',
+    money: '',
+    rate: '',
+    time: '',
+    status: '',
+    describe: '',
+  }
 
   /** 首頁 - 建構子 */
   constructor() {
@@ -84,7 +101,7 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
    * @param $event - 變更事件
    * @returns 無回傳值
    */
-  changeData($event: Event): void {
-    console.log($event);
+  changeData($event: any): void {
+    this.cardDetail = $event
   }
 }
