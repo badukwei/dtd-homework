@@ -7,6 +7,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { CardType } from '@app/model/card.model';
+import { People } from '@app/model/people.model';
 import { createCharts } from './chart';
 
 /** 首頁 */
@@ -61,7 +62,9 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
   ];
   // 開關 cardDetail
   cardState = false;
-  // 匯入卡片資料
+  /** 人口資料 */
+  peopleData!: People[];
+  //匯入卡片資料
   cardDetail = {
     title: 'Sales overview',
     money: '',
@@ -73,11 +76,9 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
   };
 
   /** 首頁 - 建構子 */
-  peopleData: any = [];
-
   constructor(private http: HttpClient) {
     console.warn('constructor: DOM 尚未載入');
-
+    // 呼叫 API
     this.http
       .get('/api/v1/rest/datastore/301000000A-000605-067', {
         headers: {
@@ -90,6 +91,7 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
         },
       });
   }
+
   /**
    * Angular 生命週期
    * 初始化元件或指令
