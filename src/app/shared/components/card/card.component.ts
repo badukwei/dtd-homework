@@ -1,20 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-
-/** 定義卡片型別 */
-export interface CardType {
-  title: string;
-  money: string;
-  rate: string;
-  time: string;
-  status: string;
-  link: string;
-  describe: string;
-}
-
-interface StatusType {
-  color: string;
-  status: string;
-}
+import { CardType } from '@app/model/card.model';
 
 /** 卡片元件 */
 @Component({
@@ -42,7 +27,7 @@ export class CardComponent {
    * @returns - 狀態 class
    */
   handleStatus(status: string): string {
-    const statusList: any = {
+    const statusList: Record<string, Record<string, string>> = {
       primary: { color: 'primary', status: 'primary' },
       danger: {
         color: 'danger',
@@ -57,9 +42,9 @@ export class CardComponent {
         status: 'warning',
       },
     };
-
-    if (statusList[status].status === status) {
-      return `bg-gradient-${statusList[status].color} shadow-${statusList[status].color}`;
+    // 當狀態類型符合樣式
+    if (statusList[status]['status'] === status) {
+      return `bg-gradient-${statusList[status]['color']} shadow-${statusList[status]['color']}`;
     }
     return '';
   }
@@ -78,8 +63,10 @@ export class CardComponent {
     };
   }
 
-  /** 點擊更新資料 */
-  submit() {
+  /**
+   * 點擊更新資料
+   */
+  submit(): void {
     this.changeData.emit(this.data);
   }
 }

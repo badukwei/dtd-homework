@@ -5,7 +5,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { CardType } from '@app/shared/components/card/card.component';
+import { CardType } from '@app/model/card.model';
 import { createCharts } from './chart';
 
 /** 首頁 */
@@ -58,20 +58,18 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
         'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis id quisquam perferendis enim odit saepe, corrupti repellat voluptates fugiat sapiente sequi sunt nihil iure molestias reiciendis soluta dolore similique voluptatum totam iste fuga doloribus! Cumque tempora, quas id repellendus aut atque vel quod eligendi exercitationem voluptates nesciunt qui iste minus praesentium recusandae ipsam odit soluta expedita, magni, aliquam et veniam?',
     },
   ];
-
-  //開關cardDetail
+  // 開關 cardDetail
   cardState = false;
-
-  //匯入卡片資料
+  // 匯入卡片資料
   cardDetail = {
-    title: '',
+    title: 'Sales overview',
     money: '',
-    rate: '',
+    rate: '4% more in 2021',
     time: '',
     status: '',
     link: '',
     describe: '',
-  }
+  };
 
   /** 首頁 - 建構子 */
   constructor() {
@@ -108,10 +106,9 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
   /**
    * output 變更事件
    * @param $event - 變更事件
-   * @returns cradState, 無
+   * @returns 無回傳值
    */
   changeData($event: any): void {
-    this.cardState = !this.cardState
-    this.cardDetail = $event
+    this.cardDetail = $event;
   }
 }
