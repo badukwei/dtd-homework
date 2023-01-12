@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -8,6 +9,7 @@ import { AppComponent } from '@app/app.component';
 import { LayoutComponent } from '@app/layout/layout.component';
 import { SignInComponent } from '@app/page/sign-in/sign-in.component';
 import { SignUpComponent } from '@app/page/sign-up/sign-up.component';
+import { ApiInterceptor } from './services/api.interceptor';
 
 /**
  * 根模組
@@ -26,8 +28,9 @@ import { SignUpComponent } from '@app/page/sign-up/sign-up.component';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [ApiInterceptor],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

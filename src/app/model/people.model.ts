@@ -1,5 +1,5 @@
 /** 人口資料 */
-export interface People {
+export interface PeopleRes {
   /** 土地面積 */
   area: string;
   /** 年底人口數 */

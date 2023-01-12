@@ -7,7 +7,9 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { CardType } from '@app/model/card.model';
-import { People } from '@app/model/people.model';
+import { PeopleRes } from '@app/model/people.model';
+import { DataService } from '@app/services/data.services';
+import { GetUserService } from '@app/services/get-user.services';
 import { createCharts } from './chart';
 
 /** 首頁 */
@@ -18,52 +20,11 @@ import { createCharts } from './chart';
 })
 export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
   /** 卡片資料 */
-  data: CardType[] = [
-    {
-      title: 'Todays Money',
-      money: '$53,000',
-      rate: '+55%',
-      time: 'since yesterday',
-      status: 'primary',
-      link: 'https://angular.tw/guide/setup-local',
-      describe:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis id quisquam perferendis enim odit saepe, corrupti repellat voluptates fugiat sapiente sequi sunt nihil iure molestias reiciendis soluta dolore similique voluptatum totam iste fuga doloribus! Cumque tempora, quas id repellendus aut atque vel quod eligendi exercitationem voluptates nesciunt qui iste minus praesentium recusandae ipsam odit soluta expedita, magni, aliquam et veniam?',
-    },
-    {
-      title: 'Todays Sales',
-      money: '$53,000',
-      rate: '+35%',
-      time: 'since Monday',
-      status: 'danger',
-      link: 'https://tpi.gitbook.io/f2e-learning/homework/zuo-ye-jiao-jiao-ou',
-      describe:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis id quisquam perferendis enim odit saepe, corrupti repellat voluptates fugiat sapiente sequi sunt nihil iure molestias reiciendis soluta dolore similique voluptatum totam iste fuga doloribus! Cumque tempora, quas id repellendus aut atque vel quod eligendi exercitationem voluptates nesciunt qui iste minus praesentium recusandae ipsam odit soluta expedita, magni, aliquam et veniam?',
-    },
-    {
-      title: 'Todays Fund',
-      money: '$53,000',
-      rate: '+25%',
-      time: 'since Saturday',
-      status: 'success',
-      link: 'https://docs.github.com/en/pull-requests/committing-changes-to-your-project/viewing-and-comparing-commits/differences-between-commit-views',
-      describe:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis id quisquam perferendis enim odit saepe, corrupti repellat voluptates fugiat sapiente sequi sunt nihil iure molestias reiciendis soluta dolore similique voluptatum totam iste fuga doloribus! Cumque tempora, quas id repellendus aut atque vel quod eligendi exercitationem voluptates nesciunt qui iste minus praesentium recusandae ipsam odit soluta expedita, magni, aliquam et veniam?',
-    },
-    {
-      title: 'Todays Coin',
-      money: '$3,000',
-      rate: '+15%',
-      time: 'since Sunday',
-      status: 'warning',
-      link: 'https://docs.github.com/en/pull-requests',
-      describe:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis id quisquam perferendis enim odit saepe, corrupti repellat voluptates fugiat sapiente sequi sunt nihil iure molestias reiciendis soluta dolore similique voluptatum totam iste fuga doloribus! Cumque tempora, quas id repellendus aut atque vel quod eligendi exercitationem voluptates nesciunt qui iste minus praesentium recusandae ipsam odit soluta expedita, magni, aliquam et veniam?',
-    },
-  ];
-  // 開關 cardDetail
+  data!: CardType[];
+  //開關cardDetail
   cardState = false;
   /** 人口資料 */
-  peopleData!: People[];
+  peopleData!: PeopleRes[];
   //匯入卡片資料
   cardDetail = {
     title: 'Sales overview',
@@ -76,20 +37,20 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
   };
 
   /** 首頁 - 建構子 */
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    /** dataService: data API 服務 */
+    private dataService: DataService,
+    /** getUserService: getUser API 服務 */
+    private getUserService: GetUserService
+  ) {
     console.warn('constructor: DOM 尚未載入');
     // 呼叫 API
-    this.http
-      .get('/api/v1/rest/datastore/301000000A-000605-067', {
-        headers: {
-          authorization: 'Bearer xxx',
-        },
-      })
-      .subscribe({
-        next: (res: any) => {
-          this.peopleData = res.result.records;
-        },
-      });
+    this.dataService.dataApi().subscribe({
+      next: (res: any) => {
+        this.peopleData = res.result.records;
+      },
+    });
   }
 
   /**
@@ -98,6 +59,10 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
    */
   ngOnInit() {
     console.log('ngOnInit');
+    // 呼叫 getUser API
+    this.getUserService.getUser().subscribe((res) => {
+      this.data = res.data;
+    });
   }
 
   /**
