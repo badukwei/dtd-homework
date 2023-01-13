@@ -40,30 +40,6 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
     describe: '',
   };
 
-  // categoryData: CategoryType[] = [
-  //   {
-  //     title: "Devices",
-  //     growthRate: "25%",
-  //     growthAmount: "5000",
-  //   },
-  //   {
-  //     title: "Devices",
-  //     growthRate: "25%",
-  //     growthAmount: "5000",
-  //   },
-  //   {
-  //     title: "Devices",
-  //     growthRate: "25%",
-  //     growthAmount: "5000",
-  //   },
-  //   {
-  //     title: "Devices",
-  //     growthRate: "25%",
-  //     growthAmount: "5000",
-  //   },
-  // ]
-
-
   /** 首頁 - 建構子 */
   constructor(
     private http: HttpClient,
@@ -71,7 +47,7 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
     private dataService: DataService,
     /** getUserService: getUser API 服務 */
     private getUserService: GetUserService,
-    /** etCategoryService: getCategory API 服務 */
+    /** getCategoryService: getCategory API 服務 */
     private getCategoryService: GetCategoryService,
   ) {
     console.warn('constructor: DOM 尚未載入');
