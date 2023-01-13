@@ -1,3 +1,4 @@
+import { CategoriesType } from './../../../model/categories.model';
 import { HttpClient } from '@angular/common/http';
 import {
   AfterViewInit,
@@ -35,6 +36,30 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
     link: '',
     describe: '',
   };
+
+  categoryData: CategoriesType[] = [
+    {
+      title: "Devices",
+      growthRate: "25%",
+      growthAmount: "5000",
+    },
+    {
+      title: "Devices",
+      growthRate: "25%",
+      growthAmount: "5000",
+    },
+    {
+      title: "Devices",
+      growthRate: "25%",
+      growthAmount: "5000",
+    },
+    {
+      title: "Devices",
+      growthRate: "25%",
+      growthAmount: "5000",
+    },
+  ]
+
 
   /** 首頁 - 建構子 */
   constructor(
@@ -79,7 +104,6 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
    */
   ngAfterViewInit() {
     console.log('ngAfterViewInit');
-    //alert('ngAfterViewInit');
     let ctx1 = (document.getElementById('chart-line') as any).getContext('2d');
     createCharts(ctx1);
   }

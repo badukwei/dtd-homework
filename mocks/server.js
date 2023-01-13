@@ -3,7 +3,7 @@ const server = jsonServer.create();
 const router = jsonServer.router("./mocks/db.json");
 const middlewares = jsonServer.defaults();
 
-var db = require("./db/index.js");
+let db = require("./db/index.js");
 
 // Set default middlewares (logger, static, cors and no-cache)
 server.use(middlewares);
@@ -14,6 +14,11 @@ server.use(middlewares);
 server.post("/api/getUser", (req, res) => {
   console.log(res.body);
   res.status(200).json(db.getUser(res));
+});
+
+server.post("/api/getCategory", (req, res) => {
+  console.log(res.body);
+  res.status(200).json(db.getCategory(res));
 });
 
 // rewrite
