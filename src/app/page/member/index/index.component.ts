@@ -1,4 +1,4 @@
-import { CategoriesType } from './../../../model/categories.model';
+import { CategoryType } from '../../../model/category.model';
 import { HttpClient } from '@angular/common/http';
 import {
   AfterViewInit,
@@ -11,6 +11,7 @@ import { CardType } from '@app/model/card.model';
 import { PeopleRes } from '@app/model/people.model';
 import { DataService } from '@app/services/data.services';
 import { GetUserService } from '@app/services/get-user.services';
+import { GetCategoryService } from '@app/services/get-category.services'
 import { createCharts } from './chart';
 
 /** 首頁 */
@@ -26,6 +27,8 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
   cardState = false;
   /** 人口資料 */
   peopleData!: PeopleRes[];
+  /** 類別資料 */
+  categoryData!: CategoryType[];
   //匯入卡片資料
   cardDetail = {
     title: 'Sales overview',
@@ -37,28 +40,28 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
     describe: '',
   };
 
-  categoryData: CategoriesType[] = [
-    {
-      title: "Devices",
-      growthRate: "25%",
-      growthAmount: "5000",
-    },
-    {
-      title: "Devices",
-      growthRate: "25%",
-      growthAmount: "5000",
-    },
-    {
-      title: "Devices",
-      growthRate: "25%",
-      growthAmount: "5000",
-    },
-    {
-      title: "Devices",
-      growthRate: "25%",
-      growthAmount: "5000",
-    },
-  ]
+  // categoryData: CategoryType[] = [
+  //   {
+  //     title: "Devices",
+  //     growthRate: "25%",
+  //     growthAmount: "5000",
+  //   },
+  //   {
+  //     title: "Devices",
+  //     growthRate: "25%",
+  //     growthAmount: "5000",
+  //   },
+  //   {
+  //     title: "Devices",
+  //     growthRate: "25%",
+  //     growthAmount: "5000",
+  //   },
+  //   {
+  //     title: "Devices",
+  //     growthRate: "25%",
+  //     growthAmount: "5000",
+  //   },
+  // ]
 
 
   /** 首頁 - 建構子 */
@@ -67,7 +70,9 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
     /** dataService: data API 服務 */
     private dataService: DataService,
     /** getUserService: getUser API 服務 */
-    private getUserService: GetUserService
+    private getUserService: GetUserService,
+    /** etCategoryService: getCategory API 服務 */
+    private getCategoryService: GetCategoryService,
   ) {
     console.warn('constructor: DOM 尚未載入');
     // 呼叫 API
@@ -88,6 +93,9 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
     this.getUserService.getUser().subscribe((res) => {
       this.data = res.data;
     });
+    this.getCategoryService.getCategory().subscribe((res) => {
+      this.categoryData = res.data;
+    })
   }
 
   /**

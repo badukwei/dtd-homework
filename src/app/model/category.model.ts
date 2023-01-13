@@ -1,5 +1,5 @@
 
-export interface CategoriesType {
+export interface CategoryType {
   /** 標題 */
   title: string;
   /** 漲幅比例 */
