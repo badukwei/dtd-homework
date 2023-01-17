@@ -13,6 +13,7 @@ import { GetPopulationService } from '@app/core/services/api/get-population.serv
 import { GetUserService } from '@app/core/services/api/get-user.services';
 import { GetCategoryService } from '@app/core/services/api/get-category.services'
 import { createCharts } from './chart';
+import { NavbarService } from '@app/core/services/navbar.service'
 
 /** 首頁 */
 @Component({
@@ -49,8 +50,12 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
     private getUserService: GetUserService,
     /** getCategoryService: getCategory API 服務 */
     private getCategoryService: GetCategoryService,
+    /** navbarService: navbarService API 服務 */
+    private navbarService: NavbarService,
   ) {
     console.warn('constructor: DOM 尚未載入');
+    // search
+    this.navbarService.searchData$.subscribe(console.log);
     // 呼叫 API
     this.getPopulationService.getPopulation().subscribe({
       next: (res: any) => {
