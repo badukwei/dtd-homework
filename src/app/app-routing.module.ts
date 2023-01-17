@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './core/guards/auth.guard';
 import { LayoutComponent } from '@app/layout/layout.component';
 import { SignInComponent } from '@app/page/sign-in/sign-in.component';
 import { SignUpComponent } from '@app/page/sign-up/sign-up.component';
@@ -14,23 +15,9 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
     loadChildren: () =>
-      import('@app/page/member/index.module').then((m) => m.IndexModule),
+    import('@app/page/member/index.module').then((m) => m.IndexModule),
+    canActivate: [AuthGuard],
   },
-  /**
-   * a-route-path-with-children
-   *  {
-   *   path: 'index',
-   *   component: LayoutComponent,
-   *   children: [
-   *     {
-   *       path: '',
-   *       component: IndexComponent,
-   *     },
-   *     // Table
-   *     { path: 'table', component: TableComponent },
-   *  ]
-   *  },
-   */
   // 註冊頁
   { path: 'sign-up', component: SignUpComponent },
   // 登入頁
@@ -42,4 +29,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

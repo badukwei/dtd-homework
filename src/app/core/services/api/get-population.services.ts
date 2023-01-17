@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class DataService {
+export class GetPopulationService {
   /** Data 資料 - 建構子 */
   constructor(private http: HttpClient) {}
 
@@ -14,7 +14,7 @@ export class DataService {
    * 資料 API
    * @returns API response
    */
-  dataApi(): Observable<any> {
+  getPopulation(): Observable<any> {
     return this.http
       .get('/api/v1/rest/datastore/301000000A-000605-067', {
         headers: {

@@ -7,6 +7,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+//用於處理錯誤，方便全局管理。
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
   constructor() {}

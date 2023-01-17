@@ -9,9 +9,9 @@ import {
 } from '@angular/core';
 import { CardType } from '@app/model/card.model';
 import { PeopleRes } from '@app/model/people.model';
-import { DataService } from '@app/services/data.services';
-import { GetUserService } from '@app/services/get-user.services';
-import { GetCategoryService } from '@app/services/get-category.services'
+import { GetPopulationService } from '@app/core/services/api/get-population.services';
+import { GetUserService } from '@app/core/services/api/get-user.services';
+import { GetCategoryService } from '@app/core/services/api/get-category.services'
 import { createCharts } from './chart';
 
 /** 首頁 */
@@ -44,7 +44,7 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
   constructor(
     private http: HttpClient,
     /** dataService: data API 服務 */
-    private dataService: DataService,
+    private getPopulationService: GetPopulationService,
     /** getUserService: getUser API 服務 */
     private getUserService: GetUserService,
     /** getCategoryService: getCategory API 服務 */
@@ -52,7 +52,7 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
   ) {
     console.warn('constructor: DOM 尚未載入');
     // 呼叫 API
-    this.dataService.dataApi().subscribe({
+    this.getPopulationService.getPopulation().subscribe({
       next: (res: any) => {
         this.peopleData = res.result.records;
       },

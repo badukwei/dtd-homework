@@ -3,5 +3,10 @@
     "target": "https://od.moi.gov.tw",
     "secure": false,
     "changeOrigin": true
+  },
+  "/oauth2/token": {
+    "target": "https://account.kkbox.com",
+    "secure": false,
+    "changeOrigin": true
   }
 }

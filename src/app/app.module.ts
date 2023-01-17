@@ -1,3 +1,4 @@
+import { SignInModule } from './page/sign-in/sigin-in.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -7,9 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
 import { LayoutComponent } from '@app/layout/layout.component';
-import { SignInComponent } from '@app/page/sign-in/sign-in.component';
 import { SignUpComponent } from '@app/page/sign-up/sign-up.component';
-import { ApiInterceptor } from './services/api.interceptor';
+import { ApiInterceptor } from './core/services/api.interceptor';
 
 /**
  * 根模組
@@ -18,7 +18,6 @@ import { ApiInterceptor } from './services/api.interceptor';
   declarations: [
     AppComponent,
     LayoutComponent,
-    SignInComponent,
     SignUpComponent,
   ],
   imports: [
@@ -29,6 +28,7 @@ import { ApiInterceptor } from './services/api.interceptor';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    SignInModule,
   ],
   providers: [ApiInterceptor],
   bootstrap: [AppComponent],
