@@ -1,4 +1,4 @@
-import { url } from "@app/constants/url.constant";
+import { url } from '@app/core/constants/url.constant';
 
 /**
  * 常數型別

@@ -5,11 +5,10 @@ import {
   FormGroup,
   FormGroupDirective,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { url } from '@app/constants/url.constant';
-import { AuthService } from '@app/core/services/api/kkbox/auth.services'
-import { UserValidationService } from '@app/core/services/api/validation/user-validation.service'
-import { SearchService } from '@app/core/services/api/kkbox/search.services'
+import { Router } from '@angular/router';
+import { url } from '@app/core/constants/url.constant';
+import { AuthService } from '@app/core/services/api/kkbox/auth.services';
+import { UserValidationService } from '@app/core/services/api/validation/user-validation.service';
 
 /** 登入頁 */
 @Component({
@@ -29,12 +28,9 @@ export class SignInComponent implements OnInit {
     private fb: FormBuilder,
     /** router: 內部調用 Angular 內部 API 路由與導航 */
     private router: Router,
-    /** route: 內部調用 Angular 內部 API ActivatedRoute 允許訪問與某出口中載入的元件關聯路由資訊 */
-    private route: ActivatedRoute,
-    private authService: AuthService,
-    private searchService: SearchService,
-
-  ) { }
+    /** authService: 會員驗證服務  */
+    private authService: AuthService
+  ) {}
 
   /**
    * Angular 生命週期
@@ -49,35 +45,52 @@ export class SignInComponent implements OnInit {
       }),
       password: this.fb.control('', {}),
       isRemember: this.fb.control(false, {}),
-    })
+    });
   }
 
   /**
    * 登入
+   * @returns 無回傳值
    */
   login(): void {
-    this.form.markAllAsTouched()
-    if (this.form.invalid) return
+    this.form.markAllAsTouched();
+    // 若表單驗證失敗，則不執行後續程式
+    if (this.form.invalid) return;
 
-    this.authService.login().subscribe({
+    const loginRequest = {
+      grant_type: 'client_credentials',
+      client_id: '45ac7f2bc0e94de81f6cbccc24ad791c',
+      client_secret: '37cff4bb0cae438536bf581f67a745bc',
+    };
+
+    // TODO: 改成使用共用公式
+    this.authService.login(loginRequest).subscribe({
       next: (res) => {
-        if (!res) return
+        if (!res) return;
 
-        window.localStorage.setItem('userToken', res.access_token)
-        this.router.navigate(['/index'])
+        window.localStorage.setItem('userToken', res.access_token);
+        this.router.navigate(['/index']);
       },
-    })
+    });
   }
 
-  /** 驗證失敗 */
+  /**
+   * 是否驗證失敗
+   * @param control - 表單控制元件
+   * @param formRef - 表單
+   * @returns 是否驗證失敗
+   */
   isInvalid(control: AbstractControl, formRef: FormGroupDirective): boolean {
-    return control.invalid && (control.touched || formRef.submitted)
+    return control.invalid && (control.touched || formRef.submitted);
   }
 
-  /** 路由轉向 */
+  /**
+   * 路由轉向
+   * @param event - 事件
+   * @returns 無回傳值
+   */
   changeTarget(event: MouseEvent): void {
-    console.log(event)
-    this.router.navigate(['/index'])
+    console.log(event);
+    this.router.navigate(['/index']);
   }
 }
-

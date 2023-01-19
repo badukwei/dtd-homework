@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CardType } from '@app/model/card.model';
+import { CardType } from '@app/core/model/card.model';
 
 /** 卡片元件 */
 @Component({

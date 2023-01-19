@@ -29,8 +29,11 @@ interface Res<T> extends BaseRes {
   providedIn: 'root',
 })
 export class GetUserService {
-  /** Data 資料 - 建構子 */
-  constructor(private http: HttpClient) {}
+  /** getUser 資料 - 建構子 */
+  constructor(
+    /** Http:內部調用 Angular 內部 API HttpClient */
+    private http: HttpClient
+  ) {}
 
   /**
    * getUser 資料 API

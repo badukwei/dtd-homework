@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { url } from '@app/constants/url.constant';
+import { url } from '@app/core/constants/url.constant';
 
 /** layout 模板 */
 @Component({

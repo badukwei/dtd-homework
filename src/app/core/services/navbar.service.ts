@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core'
-import { BehaviorSubject } from 'rxjs'
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
+/** 導覽列服務 */
 @Injectable({
   providedIn: 'root',
 })
 export class NavbarService {
-  searchData$ = new BehaviorSubject<any>([])
+  /** 導覽列資料 BehaviorSubject */
+  searchData$ = new BehaviorSubject<any>([]);
 }

@@ -1,18 +1,21 @@
-import { Injectable } from '@angular/core'
-import { AbstractControl, ValidationErrors } from '@angular/forms'
-import { ErrorMessage } from './common-validation.service'
+import { Injectable } from '@angular/core';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { ErrorMessage } from './common-validation.service';
 
 /**
  * 自定義驗證器 mapping 錯誤訊息
  */
-export const userErrorMessages: ErrorMessage = (validatorName, validatorValue?) => {
+export const userErrorMessages: ErrorMessage = (
+  validatorName,
+  validatorValue?
+) => {
   return {
     //帳號
     accountRequire: '請輸入帳號',
     accountApiError: validatorValue,
     //email
-    emailRequire: '請輸入公司信箱',
-    emailInvalid: '請輸入正確的公司信箱',
+    emailRequire: '請輸入信箱',
+    emailInvalid: '請輸入正確的信箱',
     emailApiError: validatorValue,
     //驗證碼
     captchaRequire: '請輸入驗證碼',
@@ -22,8 +25,8 @@ export const userErrorMessages: ErrorMessage = (validatorName, validatorValue?) 
     passwordRequire: '請輸入密碼',
     passwordInvalid: '請輸入正確的密碼',
     passwordApiError: validatorValue,
-  }
-}
+  };
+};
 
 @Injectable({
   providedIn: 'root',
@@ -33,32 +36,32 @@ export class UserValidationService {
   static accountValidator(control: AbstractControl): ValidationErrors | null {
     // 帳號未填寫
     if (!control.value) {
-      return { accountRequire: true }
+      return { accountRequire: true };
     }
-    return null
+    return null;
   }
   /** 電子信箱驗證器 */
   static emailValidator(control: AbstractControl): ValidationErrors | null {
     /** 電子信箱正則式規則 */
-    const regex = new RegExp('@{1,1}')
+    const regex = new RegExp('@{1,1}');
 
     // 電子信箱未填寫
     if (!control.value) {
-      return { emailRequire: true }
+      return { emailRequire: true };
     }
     // 電子信箱未包含一個 @ 符號
     if (control.value.match(regex) === null) {
-      return { emailInvalid: true }
+      return { emailInvalid: true };
     }
-    return null
+    return null;
   }
 
   /** 密碼驗證器 */
   static passwordValidator(control: AbstractControl): ValidationErrors | null {
+    // 若密碼未填寫
     if (!control.value) {
-      return { passwordRequire: true }
+      return { passwordRequire: true };
     }
-
-    return null
+    return null;
   }
 }

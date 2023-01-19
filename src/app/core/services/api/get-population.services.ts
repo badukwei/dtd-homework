@@ -8,7 +8,10 @@ import { Observable } from 'rxjs';
 })
 export class GetPopulationService {
   /** Data 資料 - 建構子 */
-  constructor(private http: HttpClient) {}
+  constructor(
+    /** Http:內部調用 Angular 內部 API HttpClient */
+    private http: HttpClient
+  ) {}
 
   /**
    * 資料 API

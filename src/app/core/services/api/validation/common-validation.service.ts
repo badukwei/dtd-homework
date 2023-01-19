@@ -1,9 +1,16 @@
-import { Injectable } from '@angular/core'
-import { AbstractControl, FormGroupDirective, ValidatorFn } from '@angular/forms'
-import { userErrorMessages } from './user-validation.service'
+import { Injectable } from '@angular/core';
+import {
+  AbstractControl,
+  FormGroupDirective,
+  ValidatorFn,
+} from '@angular/forms';
+import { userErrorMessages } from './user-validation.service';
 
 /** 表單錯誤訊息 */
-export type ErrorMessage = (validatorName: string, validatorValue?: any) => Readonly<{ [key: string]: any }>
+export type ErrorMessage = (
+  validatorName: string,
+  validatorValue?: any
+) => Readonly<{ [key: string]: any }>;
 
 /** Reactive Forms 共用服務 */
 @Injectable({
@@ -16,32 +23,46 @@ export class CommonValidationService {
    * @param validatorValue - 驗證欄位回傳值
    * @returns 錯誤訊息
    */
-  getValidatorErrorMessage(validatorName: string, validatorValue?: any): string {
+  getValidatorErrorMessage(
+    validatorName: string,
+    validatorValue?: any
+  ): string {
     const config = {
       ...userErrorMessages(validatorName, validatorValue),
-    }
-    return config[validatorName]
+    };
+    return config[validatorName];
   }
 
   /**
    * 加入驗證
    * @param control - 表單控制元件
+   * @returns - 無回傳值
    */
-  addValidators(control: AbstractControl, validators: ValidatorFn | ValidatorFn[]): void {
-    control.addValidators(validators)
-    control.updateValueAndValidity()
+  addValidators(
+    control: AbstractControl,
+    validators: ValidatorFn | ValidatorFn[]
+  ): void {
+    control.addValidators(validators);
+    control.updateValueAndValidity();
   }
+
   /**
    * 移除驗證
    * @param control - 表單控制元件
+   * @returns - 無回傳值
    */
   removeValidators(control: AbstractControl): void {
-    control.removeValidators([])
-    control.updateValueAndValidity()
+    control.removeValidators([]);
+    control.updateValueAndValidity();
   }
 
-  /** 驗證失敗 */
+  /**
+   * 驗證失敗
+   * @param control - 表單控制元件
+   * @param formRef - 表單
+   * @returns 是否驗證失敗
+   */
   isInvalid(control: AbstractControl, formRef: FormGroupDirective): boolean {
-    return control.invalid && (control.touched || formRef.submitted)
+    return control.invalid && (control.touched || formRef.submitted);
   }
 }

@@ -7,8 +7,11 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class GetCategoryService {
-  /** Data 資料 - 建構子 */
-  constructor(private http: HttpClient) {}
+  /** getCategory 資料 - 建構子 */
+  constructor(
+    /** Http:內部調用 Angular 內部 API HttpClient */
+    private http: HttpClient
+  ) {}
 
   /**
    * getCategory 資料 API

@@ -1,4 +1,4 @@
-
+/** 卡片類別資料 */
 export interface CategoryType {
   /** 標題 */
   title: string;
