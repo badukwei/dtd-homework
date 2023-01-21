@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
+ /** 身分認證 */
 export class AuthGuard implements CanActivate {
   constructor(private router: Router) {}
   canActivate(

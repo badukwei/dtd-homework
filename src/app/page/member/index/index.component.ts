@@ -10,7 +10,7 @@ import { CardType } from '@app/core/model/card.model';
 import { PeopleRes } from '@app/core/model/people.model';
 import { GetCategoryService } from '@app/core/services/api/get-category.services';
 import { GetPopulationService } from '@app/core/services/api/get-population.services';
-import { GetUserService } from '@app/core/services/api/get-user.services';
+import { GetCardDataService } from '@app/core/services/api/get-card-data.services';
 import { NavbarService } from '@app/core/services/navbar.service';
 import { Observable, take } from 'rxjs';
 import { CategoryType } from '../../../core/model/category.model';
@@ -45,14 +45,20 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
   /** 取得人口資料 API 共用公式 */
   getPopulation$ = (): Observable<any> =>
     this.getPopulationService.getPopulation().pipe(take(1));
+  /** 取得卡片資料 API 共用公式 */
+  getCardDataService$ = (): Observable<any> =>
+    this.getCardDataService.getCardData();
+  /** 取得類別資料 API 共用公式 */
+  getCategoryService$ = (): Observable<any> =>
+    this.getCategoryService.getCategory();
 
   /** 首頁 - 建構子 */
   constructor(
     private http: HttpClient,
     /** dataService: data API 服務 */
     private getPopulationService: GetPopulationService,
-    /** getUserService: getUser API 服務 */
-    private getUserService: GetUserService,
+    /** getCardDataService: getUser API 服務 */
+    private getCardDataService: GetCardDataService,
     /** getCategoryService: getCategory API 服務 */
     private getCategoryService: GetCategoryService,
     /** navbarService: navbarService API 服務 */
@@ -68,13 +74,12 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
    * 初始化元件或指令
    */
   ngOnInit() {
-    console.log('ngOnInit');
-    // 呼叫 getUser API
-    this.getUserService.getUser().subscribe((res) => {
+    // 呼叫 getCardData API
+    this.getCardDataService$().subscribe((res) => {
       this.data = res.data;
     });
-    // TODO: 把 getUserService（getUser） 和  getCategoryService（getCategory）都改成用共用公式
-    this.getCategoryService.getCategory().subscribe((res) => {
+    // 呼叫 getCategory API
+    this.getCategoryService$().subscribe((res) => {
       this.categoryData = res.data;
     });
 

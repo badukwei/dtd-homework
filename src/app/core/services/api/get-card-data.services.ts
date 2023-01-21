@@ -28,7 +28,7 @@ interface Res<T> extends BaseRes {
 @Injectable({
   providedIn: 'root',
 })
-export class GetUserService {
+export class GetCardDataService {
   /** getUser 資料 - 建構子 */
   constructor(
     /** Http:內部調用 Angular 內部 API HttpClient */
@@ -39,7 +39,7 @@ export class GetUserService {
    * getUser 資料 API
    * @returns API response
    */
-  getUser(): Observable<any> {
+  getCardData(): Observable<any> {
     return this.http
       .post('http://localhost:3000/api/getUser', {
         headers: {
