@@ -37,6 +37,7 @@ export class CommonValidationService {
    * 加入驗證
    * @param control - 表單控制元件
    * @returns - 無回傳值
+   * @returns - 無回傳值
    */
   addValidators(
     control: AbstractControl,
@@ -56,6 +57,12 @@ export class CommonValidationService {
     control.updateValueAndValidity();
   }
 
+  /**
+   * 驗證失敗
+   * @param control - 表單控制元件
+   * @param formRef - 表單
+   * @returns 是否驗證失敗
+   */
   /**
    * 驗證失敗
    * @param control - 表單控制元件
