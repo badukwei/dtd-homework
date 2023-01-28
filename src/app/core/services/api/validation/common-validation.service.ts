@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core'
-import {AbstractControl, FormGroupDirective, ValidatorFn} from '@angular/forms'
-import {userErrorMessages} from './user-validation.service'
+import { Injectable } from '@angular/core'
+import { AbstractControl, FormGroupDirective, ValidatorFn } from '@angular/forms'
+import { userErrorMessages } from './user-validation.service'
 
 /** 表單錯誤訊息 */
-export type ErrorMessage = (validatorName: string, validatorValue?: any) => Readonly<{[key: string]: any}>
+export type ErrorMessage = (validatorName: string, validatorValue?: any) => Readonly<{ [key: string]: any }>
 
 /** Reactive Forms 共用服務 */
 @Injectable({
