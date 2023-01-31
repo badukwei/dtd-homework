@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { EmptyDataPipe } from '@app/shared/pipes/empty-data.pipe';
 
 /** 表格頁 */
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
+  providers: [EmptyDataPipe],
 })
 export class TableComponent {
   /** 頁面標題 */
@@ -58,14 +60,14 @@ export class TableComponent {
       project: 'Jira',
       projectUrl: '../assets/img/small-logos/logo-jira.svg',
       budget: 3400,
-      status: 'canceled',
+      status: '',
       completion: 30,
     },
     {
       project: 'Slack',
       projectUrl: '../assets/img/small-logos/logo-slack.svg',
       budget: 1000,
-      status: 'canceled',
+      status: '',
       completion: 0,
     },
     {

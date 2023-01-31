@@ -6,7 +6,9 @@
       <div class="col-12">
         <div class="card mb-4">
           <div class="card-header pb-0">
-            <h6 *ngIf="title" (click)="changeTitle()">{{ title }}</h6>
+            <h6 *ngIf="title" (click)="changeTitle()" appHighlight>
+              {{ title }}
+            </h6>
             <p *ngIf="isShow">Hello</p>
             <div *ngTemplateOutlet="show"></div>
           </div>
@@ -157,12 +159,17 @@
                         {{ item?.budget }}
                       </p>
                     </td>
-                    <td *ngIf="item.status; else noData">
+                    <!-- <td *ngIf="item.status; else noData">
                       <span
                         *ngIf="item.status !== 'canceled'; else canceled"
                         class="text-xs font-weight-bold"
                         >{{ item?.status }}</span
                       >
+                    </td> -->
+                    <td>
+                      <span class="text-xs font-weight-bold">{{
+                        item?.status | emptyData
+                      }}</span>
                     </td>
                     <!-- 第二種寫法 -->
                     <!-- <td>
@@ -277,4 +284,6 @@
   <!-- 表格End -->
 </main>
 
-<ng-template #show> World </ng-template>
+<ng-template #show>
+  <p appHighlight>World</p>
+</ng-template>
