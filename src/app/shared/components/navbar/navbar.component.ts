@@ -30,11 +30,7 @@ export class NavbarComponent {
       territory: 'TW',
     }
 
-    this.searchService.search(request).subscribe({
-      next: (res) => {
-        this.navbarService.searchData$.next(res.tracks.data)
-      },
-    })
+    this.navbarService.searchData2$ = this.search$(request)
   }
 
   /**
@@ -48,10 +44,11 @@ export class NavbarComponent {
       type: 'track',
       territory: 'TW',
     };
-    this.searchService.search(request).subscribe({
-      next: (res) => {
-        this.navbarService.searchData$.next(res.tracks.data);
-      },
-    });
+    this.navbarService.searchData2$ = this.search$(request)
+    // this.searchService.search(request).subscribe({
+    //   next: (res) => {
+    //     this.navbarService.searchData$.next(res.tracks.data);
+    //   },
+    // });
   }
 }
