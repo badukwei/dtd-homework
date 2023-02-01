@@ -62,11 +62,9 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
     /** getCategoryService: getCategory API 服務 */
     private getCategoryService: GetCategoryService,
     /** navbarService: navbarService API 服務 */
-    private navbarService: NavbarService
+    public navbarService: NavbarService
   ) {
     console.warn('constructor: DOM 尚未載入');
-    // search
-    this.navbarService.searchData$.subscribe(console.log);
   }
 
   /**
