@@ -139,7 +139,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of projectData; let i = index">
+                  <tr
+                    *ngFor="
+                      let item of projectData | orderBy : 'budget' : 'desc';
+                      let i = index
+                    "
+                  >
                     <td>
                       <div class="d-flex px-2">
                         <div *ngIf="item.projectUrl; else noData">
@@ -156,27 +161,14 @@
                     </td>
                     <td *ngIf="item.budget; else noData">
                       <p class="text-sm font-weight-bold mb-0">
-                        {{ item?.budget }}
+                        {{ item?.budget | price}}
                       </p>
                     </td>
-                    <!-- <td *ngIf="item.status; else noData">
-                      <span
-                        *ngIf="item.status !== 'canceled'; else canceled"
-                        class="text-xs font-weight-bold"
-                        >{{ item?.status }}</span
-                      >
-                    </td> -->
                     <td>
                       <span class="text-xs font-weight-bold">{{
                         item?.status | emptyData
                       }}</span>
                     </td>
-                    <!-- 第二種寫法 -->
-                    <!-- <td>
-                    <span class="text-xs font-weight-bold">
-                      {{ item.status === 'canceled' ? '—' : item.status }}
-                    </span>
-                  </td> -->
                     <td
                       *ngIf="item.completion !== undefined; else noData"
                       class="align-middle text-center"

@@ -1,3 +1,4 @@
+import { OrderByPipe } from './../../../shared/pipes/order-by.pipe';
 import { Component } from '@angular/core';
 import { EmptyDataPipe } from '@app/shared/pipes/empty-data.pipe';
 
@@ -6,7 +7,7 @@ import { EmptyDataPipe } from '@app/shared/pipes/empty-data.pipe';
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
-  providers: [EmptyDataPipe],
+  providers: [EmptyDataPipe, OrderByPipe],
 })
 export class TableComponent {
   /** 頁面標題 */
@@ -17,7 +18,7 @@ export class TableComponent {
   //Author
   authorData: any = [
     {
-      author: 'John Michael',
+      author: 'Amber Michael',
       authorUrl: '../assets/img/team-2.jpg',
       email: 'john@creative-tim.com',
       function: {
@@ -28,7 +29,7 @@ export class TableComponent {
       employed: '2023-04-18',
     },
     {
-      author: 'John Michael',
+      author: 'Peter Michael',
       authorUrl: '../assets/img/team-2.jpg',
       email: 'john@creative-tim.com',
       function: {
