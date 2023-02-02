@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { SearchService } from '@app/core/services/api/kkbox/search.services';
 import { NavbarService } from '@app/core/services/navbar.service';
-import { map, shareReplay } from 'rxjs';
+import { OrderByPipe } from '@app/shared/pipes/order-by.pipe';
+import { of } from 'rxjs'
+import { map, shareReplay, tap } from 'rxjs/operators'
 
 @Component({
   selector: 'app-navbar',
@@ -13,6 +15,18 @@ export class NavbarComponent {
   search$ = (request: any) =>
   this.searchService.search(request).pipe(
     map((res) => res.tracks.data),
+    // 可以放 side effect 的地方
+    tap(data => {
+      // 日期排序，ES6 JS-淺拷貝(Shallow Copy) VS 深拷貝(Deep Copy)
+      const abc = [...data].sort(
+        (a, z) =>
+        new Date(z.album.release_date).getTime() -
+        new Date(a.album.release_date).getTime()
+      )
+      abc.splice(3, abc.length)
+      console.log(abc)
+      this.navbarService.searchData3$ = of(abc)
+    }),
     // cache api
     shareReplay(1),
   )
@@ -20,7 +34,9 @@ export class NavbarComponent {
     /** searchService: 搜尋服務 */
     private searchService: SearchService,
     /** navbarService: 導覽列服務 */
-    private navbarService: NavbarService
+    private navbarService: NavbarService,
+    /** navbarService: 排列 pipe */
+    private orderByPipe: OrderByPipe,
   ) {}
 
   ngOninit() {
@@ -45,10 +61,5 @@ export class NavbarComponent {
       territory: 'TW',
     };
     this.navbarService.searchData2$ = this.search$(request)
-    // this.searchService.search(request).subscribe({
-    //   next: (res) => {
-    //     this.navbarService.searchData$.next(res.tracks.data);
-    //   },
-    // });
   }
 }

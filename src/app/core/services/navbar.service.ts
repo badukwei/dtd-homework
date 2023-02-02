@@ -9,5 +9,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class NavbarService {
   /** 導覽列資料 BehaviorSubject */
   searchData$ = new BehaviorSubject<Datum[]>([]);
-  searchData2$: Observable<any> = new Observable()
+  searchData2$: Observable<any> = new Observable();
+  searchData3$: Observable<any> = new Observable();
 }
