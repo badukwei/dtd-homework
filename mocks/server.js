@@ -11,10 +11,10 @@ server.use(middlewares);
 /**
  * 首頁
  */
-// getUser
-server.post("/api/getUser", (req, res) => {
+// getNewInfo
+server.post("/api/getNewInfo", (req, res) => {
   console.log(res.body);
-  res.status(200).json(db.getUser(res));
+  res.status(200).json(db.getNewInfo(res));
 });
 // getCategory
 server.post("/api/getCategory", (req, res) => {

@@ -1,3 +1,4 @@
+import { Datum, SearchResult } from './../../../core/model/kkbox/search/search.model';
 import {
   AfterViewInit,
   Component,
@@ -27,14 +28,13 @@ import { EmptyDataPipe } from '@app/shared/pipes/empty-data.pipe';
   providers: [OrderByPipe, EmptyDataPipe],
 })
 export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
-  books: CardType[] = []
-  /** 卡片資料 */
-  data!: CardType[];
+  /** NewInfo卡片資料 */
+  newInfoData!: CardType[];
   //開關cardDetail
   cardState = false;
   /** 類別資料 */
   categoryData: CategoryType[] = [];
-  /** 匯入卡片資料 */
+  /** 匯入圖表資料 */
   cardDetail = {
     title: 'Sales overview',
     money: '',
@@ -42,6 +42,18 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
     time: '',
     status: '',
     link: '',
+    describe: '',
+  };
+  /** 唱片資料 */
+  books: SearchResult[] = [];
+  /** NewInfo卡片資料 */
+  tracksDetail = {
+    name: '',
+    duration: 0,
+    date: '',
+    artistName: '',
+    url: '',
+    status: '',
     describe: '',
   };
   /** 年分選擇 */
@@ -76,7 +88,7 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
   ngOnInit() {
     // 呼叫 getCardData API
     this.getCardDataService$().subscribe((res) => {
-      this.data = res.data;
+      this.newInfoData = res.data;
     });
     // 呼叫 getCategory API
     this.getCategoryService$().subscribe((res) => {
@@ -85,47 +97,49 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
     /**
      *
      */
-    this.navbarService._searchData$.pipe(
-      map((searchData2Res) => {
-        const mySet = new Set();
-        const years = [...this.navbarService.originalSearchData].map((d: any) =>
-          new Date(d.album.release_date).getFullYear()
-        );
-        years.forEach((y) => {
-          mySet.add(y);
-        });
+    this.navbarService._searchData$
+      .pipe(
+        map((searchData2Res) => {
+          const mySet = new Set();
+          const years = [...this.navbarService.originalSearchData].map(
+            (d: any) => new Date(d.album.release_date).getFullYear()
+          );
+          years.forEach((y) => {
+            mySet.add(y);
+          });
 
-        /**年份不重複 */
-        const uniqueYear = [...mySet].map((d) => ({ year: d }));
-        /**依年份排序 */
-        const sortedYear = this.orderByPipe.transform(
-          uniqueYear,
-          'year',
-          'desc'
-        );
-        //更新年份 select
-        this.selectYearList = ['all', ...sortedYear.map((d) => d.year)];
+          /**年份不重複 */
+          const uniqueYear = [...mySet].map((d) => ({ year: d }));
+          /**依年份排序 */
+          const sortedYear = this.orderByPipe.transform(
+            uniqueYear,
+            'year',
+            'desc'
+          );
+          //更新年份 select
+          this.selectYearList = ['all', ...sortedYear.map((d) => d.year)];
 
-        /**新發售排行 */
-        const no3 = [...searchData2Res];
-        no3.splice(3, no3.length);
-        this.books = no3.map((d: any) => ({
-          title: d.name,
-          money: d.duration,
-          time: d.album.release_date,
-          rate: d.album.artist.name,
-          status: '',
-          link: d.album.images[0].url,
-          describe: '',
-        })) as CardType[];
+          /**新發售排行 */
+          const no3 = [...searchData2Res];
+          no3.splice(3, no3.length);
+          this.books = no3.map((d: any) => ({
+            name: d.name,
+            duration: d.duration,
+            date: d.album.release_date,
+            artistName: d.album.artist.name,
+            url: d.album.images[0].url,
+            status: '',
+            describe: '',
+          })) as SearchResult[];
 
-        //新發售排行詳細內容，預設使用第一筆
-        if (this.books[0]) {
-          this.cardDetail = this.books[0];
-          console.log(this.cardDetail)
-        }
-      })
-    ).subscribe()
+          //新發售排行詳細內容，預設使用第一筆
+          if (this.books[0]) {
+            this.tracksDetail = this.books[0];
+            console.log(this.cardDetail);
+          }
+        })
+      )
+      .subscribe();
   }
 
   /**
@@ -147,18 +161,17 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
   }
 
   changeSelect($event: any) {
-    const year = $event.value
+    const year = $event.value;
     if (year === 'all') {
-      this.navbarService.updateSearch(this.navbarService.originalSearchData)
+      this.navbarService.updateSearch(this.navbarService.originalSearchData);
     } else {
       const filterData = [...this.navbarService.originalSearchData].filter(
-        (d: any) => new Date(d.album.release_date).getFullYear() === year,
-      )
-      this.navbarService.updateSearch(filterData)
+        (d: any) => new Date(d.album.release_date).getFullYear() === year
+      );
+      this.navbarService.updateSearch(filterData);
     }
-    this.selectYear$.next($event.value)
+    this.selectYear$.next($event.value);
   }
-
 
   /**
    * output 變更事件

@@ -1,4 +1,4 @@
 module.exports = {
-  getUser: require("./api/getUser.js"),
+  getNewInfo: require("./api/getNewInfo.js"),
   getCategory: require("./api/getCategory.js"),
 };

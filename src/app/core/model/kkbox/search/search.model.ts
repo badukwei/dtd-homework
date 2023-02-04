@@ -78,3 +78,14 @@ export enum AvailableTerritory {
   Sg = 'SG',
   Tw = 'TW',
 }
+
+/** 主頁顯示搜尋結果資料型別 */
+export interface SearchResult {
+  name: string;
+  duration: number;
+  date: string;
+  artistName: string;
+  url: string;
+  status: string;
+  describe: string;
+}

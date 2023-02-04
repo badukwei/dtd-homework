@@ -29,19 +29,19 @@ interface Res<T> extends BaseRes {
   providedIn: 'root',
 })
 export class GetCardDataService {
-  /** getUser 資料 - 建構子 */
+  /** getNewInfo 資料 - 建構子 */
   constructor(
     /** Http:內部調用 Angular 內部 API HttpClient */
     private http: HttpClient
   ) {}
 
   /**
-   * getUser 資料 API
+   * getNewInfo 資料 API
    * @returns API response
    */
   getCardData(): Observable<any> {
     return this.http
-      .post('http://localhost:3000/api/getUser', {
+      .post('http://localhost:3000/api/getNewInfo', {
         headers: {
           authorization: 'Bearer xxx',
         },
