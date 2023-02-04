@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import {
   AfterViewInit,
   Component,
@@ -7,28 +6,32 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { CardType } from '@app/core/model/card.model';
-import { PeopleRes } from '@app/core/model/people.model';
+import { CategoryType } from '../../../core/model/category.model';
+
+import { createCharts } from './chart';
+
 import { GetCategoryService } from '@app/core/services/api/get-category.services';
-import { GetPopulationService } from '@app/core/services/api/get-population.services';
 import { GetCardDataService } from '@app/core/services/api/get-card-data.services';
 import { NavbarService } from '@app/core/services/navbar.service';
-import { Observable, take } from 'rxjs';
-import { CategoryType } from '../../../core/model/category.model';
-import { createCharts } from './chart';
+
+import { BehaviorSubject, Observable, map, take } from 'rxjs';
+
+import { OrderByPipe } from '@app/shared/pipes/order-by.pipe';
+import { EmptyDataPipe } from '@app/shared/pipes/empty-data.pipe';
 
 /** 首頁 */
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.scss'],
+  providers: [OrderByPipe, EmptyDataPipe],
 })
 export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
+  books: CardType[] = []
   /** 卡片資料 */
   data!: CardType[];
   //開關cardDetail
   cardState = false;
-  /** 人口資料 */
-  peopleData: PeopleRes[] = [];
   /** 類別資料 */
   categoryData: CategoryType[] = [];
   /** 匯入卡片資料 */
@@ -41,10 +44,10 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
     link: '',
     describe: '',
   };
+  /** 年分選擇 */
+  selectYear$ = new BehaviorSubject<string>('all');
+  selectYearList: any[] = [];
 
-  /** 取得人口資料 API 共用公式 */
-  getPopulation$ = (): Observable<any> =>
-    this.getPopulationService.getPopulation().pipe(take(1));
   /** 取得卡片資料 API 共用公式 */
   getCardDataService$ = (): Observable<any> =>
     this.getCardDataService.getCardData();
@@ -54,13 +57,12 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
 
   /** 首頁 - 建構子 */
   constructor(
-    private http: HttpClient,
-    /** dataService: data API 服務 */
-    private getPopulationService: GetPopulationService,
     /** getCardDataService: getUser API 服務 */
     private getCardDataService: GetCardDataService,
     /** getCategoryService: getCategory API 服務 */
     private getCategoryService: GetCategoryService,
+    /**  orderByPipe：資料排序處理 */
+    private orderByPipe: OrderByPipe,
     /** navbarService: navbarService API 服務 */
     public navbarService: NavbarService
   ) {
@@ -80,13 +82,50 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
     this.getCategoryService$().subscribe((res) => {
       this.categoryData = res.data;
     });
+    /**
+     *
+     */
+    this.navbarService._searchData$.pipe(
+      map((searchData2Res) => {
+        const mySet = new Set();
+        const years = [...this.navbarService.originalSearchData].map((d: any) =>
+          new Date(d.album.release_date).getFullYear()
+        );
+        years.forEach((y) => {
+          mySet.add(y);
+        });
 
-    // 呼叫人口資料 API
-    this.getPopulation$().subscribe({
-      next: (res: any) => {
-        this.peopleData = res.result.records;
-      },
-    });
+        /**年份不重複 */
+        const uniqueYear = [...mySet].map((d) => ({ year: d }));
+        /**依年份排序 */
+        const sortedYear = this.orderByPipe.transform(
+          uniqueYear,
+          'year',
+          'desc'
+        );
+        //更新年份 select
+        this.selectYearList = ['all', ...sortedYear.map((d) => d.year)];
+
+        /**新發售排行 */
+        const no3 = [...searchData2Res];
+        no3.splice(3, no3.length);
+        this.books = no3.map((d: any) => ({
+          title: d.name,
+          money: d.duration,
+          time: d.album.release_date,
+          rate: d.album.artist.name,
+          status: '',
+          link: d.album.images[0].url,
+          describe: '',
+        })) as CardType[];
+
+        //新發售排行詳細內容，預設使用第一筆
+        if (this.books[0]) {
+          this.cardDetail = this.books[0];
+          console.log(this.cardDetail)
+        }
+      })
+    ).subscribe()
   }
 
   /**
@@ -106,6 +145,20 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
     let ctx1 = (document.getElementById('chart-line') as any).getContext('2d');
     createCharts(ctx1);
   }
+
+  changeSelect($event: any) {
+    const year = $event.value
+    if (year === 'all') {
+      this.navbarService.updateSearch(this.navbarService.originalSearchData)
+    } else {
+      const filterData = [...this.navbarService.originalSearchData].filter(
+        (d: any) => new Date(d.album.release_date).getFullYear() === year,
+      )
+      this.navbarService.updateSearch(filterData)
+    }
+    this.selectYear$.next($event.value)
+  }
+
 
   /**
    * output 變更事件
