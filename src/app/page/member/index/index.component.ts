@@ -1,4 +1,4 @@
-import { Datum, SearchResult } from './../../../core/model/kkbox/search/search.model';
+import { SearchResult } from './../../../core/model/kkbox/search/search.model';
 import {
   AfterViewInit,
   Component,
@@ -29,7 +29,7 @@ import { EmptyDataPipe } from '@app/shared/pipes/empty-data.pipe';
 })
 export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
   /** NewInfo卡片資料 */
-  newInfoData!: CardType[];
+  cardData!: CardType[];
   //開關cardDetail
   cardState = false;
   /** 類別資料 */
@@ -46,7 +46,7 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
   };
   /** 唱片資料 */
   books: SearchResult[] = [];
-  /** NewInfo卡片資料 */
+  /** 唱片詳細資料 */
   tracksDetail = {
     name: '',
     duration: 0,
@@ -88,14 +88,14 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
   ngOnInit() {
     // 呼叫 getCardData API
     this.getCardDataService$().subscribe((res) => {
-      this.newInfoData = res.data;
+      this.cardData = res.data;
     });
     // 呼叫 getCategory API
     this.getCategoryService$().subscribe((res) => {
       this.categoryData = res.data;
     });
     /**
-     *
+     * 年分排序
      */
     this.navbarService._searchData$
       .pipe(
@@ -135,7 +135,6 @@ export class IndexComponent implements AfterViewInit, OnInit, OnChanges {
           //新發售排行詳細內容，預設使用第一筆
           if (this.books[0]) {
             this.tracksDetail = this.books[0];
-            console.log(this.cardDetail);
           }
         })
       )

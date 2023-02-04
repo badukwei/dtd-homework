@@ -9,7 +9,7 @@ import { CardType } from '@app/core/model/card.model';
 })
 export class CardComponent {
   /** 匯入資料 */
-  @Input() newInfoData: CardType = {
+  @Input() cardData: CardType = {
     title: '',
     money: '',
     rate: '',
@@ -67,6 +67,6 @@ export class CardComponent {
    * 點擊更新資料
    */
   submit(): void {
-    this.changeData.emit(this.newInfoData);
+    this.changeData.emit(this.cardData);
   }
 }

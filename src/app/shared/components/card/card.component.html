@@ -4,21 +4,21 @@
       <div class="col-8">
         <div class="numbers">
           <p class="text-sm mb-0 text-uppercase font-weight-bold">
-            {{ newInfoData.title }}
+            {{ cardData.title }}
           </p>
-          <h5 class="font-weight-bolder">{{ newInfoData.money }}</h5>
+          <h5 class="font-weight-bolder">{{ cardData.money }}</h5>
           <p class="mb-0">
             <span class="text-success text-sm font-weight-bolder">{{
-              newInfoData.rate
+              cardData.rate
             }}</span>
-            {{ newInfoData.time }}
+            {{ cardData.time }}
           </p>
         </div>
       </div>
       <div class="col-4 text-end">
         <div
           class="icon icon-shape text-center rounded-circle"
-          [class]="handleStatus(newInfoData.status)"
+          [class]="handleStatus(cardData.status)"
         >
           <i
             class="ni ni-money-coins text-lg opacity-10"
@@ -26,7 +26,7 @@
           ></i>
         </div>
       </div>
-      <a [href]="newInfoData.link">To the Website</a>
+      <a [href]="cardData.link">To the Website</a>
     </div>
   </div>
 </div>
